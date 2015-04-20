@@ -18,8 +18,12 @@ class HashTable:
             return False
 
     def increase_hash_table(self):
-        growth_factor = 0.75
-        num_to_increase = int(self.size * growth_factor)
+        growth_factor = 1.75
+        self.size = int(self.size * growth_factor)
+        inter_slots = [None] * self.size
+        inter_data = [None] * self.size
+        for slot in self.slots:
+
         self.slots += [None] * num_to_increase
         self.data += [None] * num_to_increase
 
@@ -51,14 +55,14 @@ class HashTable:
                     # Get the next slot
                     nextslot = self.rehash(nextslot,len(self.slots))
 
-                    # Check if the next slot is empty
-                    if self.slots[nextslot] == None:
-                        # Store the key/data
-                        self.slots[nextslot]=key
-                        self.data[nextslot]=data
-                    else:
-                        # Replace the data
-                        self.data[nextslot] = data
+                # Check if the next slot is empty
+                if self.slots[nextslot] == None:
+                    # Store the key/data
+                    self.slots[nextslot]=key
+                    self.data[nextslot]=data
+                else:
+                    # Replace the data
+                    self.data[nextslot] = data
 
     # Returns the hashvalue based on a given key and size of table
     def hashfunction(self,key,size):
